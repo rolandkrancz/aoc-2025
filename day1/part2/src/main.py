@@ -1,32 +1,34 @@
 import re
 
-def NormalizeNumber(number):
-    while number > 99:
-        number -= 100
-
-    if number < 0:
-        number = 100 + number
- 
-    return number
-
 def GetResult(input):
     dial = 50
     zeroCounter = 0
-    
+
     for line in input:
         direction = line[0]
         numberToRotate = int(re.findall(r'\d+', line)[0])
-        numberToRotate = NormalizeNumber(numberToRotate)
-
+        
+        isTurnedFromZero = (dial == 0)
         if direction == "L":
             dial -= numberToRotate
         elif direction == "R":
             dial += numberToRotate
 
-        dial = NormalizeNumber(dial)
-        
+        # Normalize dial and count zeroes
         if dial == 0:
             zeroCounter += 1
+        else:
+            while dial > 99:
+                dial -= 100
+                zeroCounter += 1
+            while dial < 0:
+                dial += 100
+                if not isTurnedFromZero:
+                    zeroCounter += 1
+                else:
+                    isTurnedFromZero = False
+                if dial == 0:
+                    zeroCounter += 1
             
     return zeroCounter 
 

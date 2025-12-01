@@ -5,7 +5,7 @@ def NormalizeNumber(number):
         number -= 100
 
     if number < 0:
-        number = 100 + number
+        number += 100
  
     return number
 

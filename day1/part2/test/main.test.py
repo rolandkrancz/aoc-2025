@@ -19,16 +19,31 @@ class TestGetResult(unittest.TestCase):
         result = GetResult(test_input)
         self.assertEqual(result, 1)
 
-    def test_overflow(self):
-        test_input = ["R140", "R490", "L580"]
+    def test_overflow_right(self):
+        test_input = ["R500"]
         result = GetResult(test_input)
-        self.assertEqual(result, 1)
+        self.assertEqual(result, 5)
+
+    def test_overflow_left(self):
+        test_input = ["L200"]
+        result = GetResult(test_input)
+        self.assertEqual(result, 2)
+    
+    def test_overflow_right_lands_on_zero(self):
+        test_input = ["R250"]
+        result = GetResult(test_input)
+        self.assertEqual(result, 3)
+
+    def test_overflow_left_lands_on_zero(self):
+        test_input = ["L250"]
+        result = GetResult(test_input)
+        self.assertEqual(result, 3)
 
     def test_sample_from_aoc(self):
         test_input_path = os.path.join(os.path.dirname(__file__), "test_input.txt")
         with open(test_input_path, "r") as testinput:
             result = GetResult(testinput)
-        self.assertEqual(result, 3)
+        self.assertEqual(result, 6)
 
 if __name__ == '__main__':
     unittest.main()
