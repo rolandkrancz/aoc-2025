@@ -1,28 +1,31 @@
 import re
 
+def NormalizeNumber(number):
+    while number > 99:
+        number -= 100
+
+    if number < 0:
+        number = 100 + number
+ 
+    return number
+
 def GetResult(input):
-    currentNumber = 50
+    dial = 50
     zeroCounter = 0
     
     for line in input:
         direction = line[0]
-        number = int(re.findall(r'\d+', line)[0])
-        # normalize the number:
-        while number > 99:
-            number -= 100
+        numberToRotate = int(re.findall(r'\d+', line)[0])
+        numberToRotate = NormalizeNumber(numberToRotate)
 
         if direction == "L":
-            currentNumber -= number
+            dial -= numberToRotate
         elif direction == "R":
-            currentNumber += number
+            dial += numberToRotate
+
+        dial = NormalizeNumber(dial)
         
-        # overflow scenarios
-        if currentNumber > 99:
-            currentNumber -= 100
-        elif currentNumber < 0:
-            currentNumber = 100 + currentNumber
-            
-        if currentNumber == 0:
+        if dial == 0:
             zeroCounter += 1
             
     return zeroCounter 
