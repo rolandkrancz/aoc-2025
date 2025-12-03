@@ -1,5 +1,5 @@
 
-def solve(input_file):
+def solve_part1(input_file):
     with open(input_file, "r", encoding="utf-8") as file:
         lines = file.readlines()
         total_jolts = 0
@@ -40,11 +40,37 @@ def _find_highest_digit_index(digits):
 
     return highest_digit_index
 
-def main():
-    result = solve("input.txt")
-    print(f"Part 1 result: {result}")
-    return 0
+def solve_part2(input_file):
+    with open(input_file, "r", encoding="utf-8") as file:
+        lines = file.readlines()
+        total_jolts = 0
+        for line in lines:
+            digits_of_line = []
+            for char in line.strip():
+                digits_of_line.append(int(char))
+            
+            # Greedy algorithm with stack
+            to_remove = len(digits_of_line) - 12
+            stack = []
+            for digit in digits_of_line:
+                while to_remove and stack and digit > stack[-1]:
+                    stack.pop()
+                    to_remove -= 1
+                stack.append(digit)
 
+            jolts = int("".join(map(str, stack[:12]))) 
+            total_jolts += jolts
+
+    return total_jolts
+
+def main():
+    result = solve_part1("input.txt")
+    print(f"Part 1 result: {result}")
+
+    result = solve_part2("input.txt")
+    print(f"Part 2 result: {result}")
+
+    return 0
 
 if __name__ == "__main__":
     main()
