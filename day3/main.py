@@ -1,9 +1,8 @@
 
 def solve_part1(input_file):
     with open(input_file, "r", encoding="utf-8") as file:
-        lines = file.readlines()
         total_jolts = 0
-        for line in lines:
+        for line in file:
             jolts = 0
             digits_of_line = []
             for char in line.strip():
@@ -42,9 +41,8 @@ def _find_highest_digit_index(digits):
 
 def solve_part2(input_file):
     with open(input_file, "r", encoding="utf-8") as file:
-        lines = file.readlines()
         total_jolts = 0
-        for line in lines:
+        for line in file:
             digits_of_line = []
             for char in line.strip():
                 digits_of_line.append(int(char))
