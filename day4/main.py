@@ -1,30 +1,29 @@
-def solve_part1(input_file):
-    accessible_rolls = 0
+def get_input(input_file):
+    grid = 0
     with open(input_file, "r", encoding="utf-8") as file:
         grid = [list(line.strip()) for line in file]
+    return grid
+
+def solve_part1(grid):
+    accessible_rolls = 0
 
     for x, row in enumerate(grid):
-        print(row)
         for y, cell in enumerate(row):
             if cell == "@":
                 adjacent_rolls = _count_adjacent_rolls(grid, x, y)
                 if adjacent_rolls < 4:
                     accessible_rolls += 1
-                    grid[x][y] = "x"
 
     return accessible_rolls
 
-def solve_part2(input_file):
+def solve_part2(grid):
     prev_accessible_rolls = -1
     accessible_rolls = 0
-    
-    with open(input_file, "r", encoding="utf-8") as file:
-        grid = [list(line.strip()) for line in file]
 
     while accessible_rolls > prev_accessible_rolls:
         prev_accessible_rolls = accessible_rolls
         accessible_rolls += _iterate(grid)
-    
+
     return accessible_rolls
 
 def _iterate(grid):
@@ -36,7 +35,7 @@ def _iterate(grid):
                 if adjacent_rolls < 4:
                     accessible_rolls += 1
                     grid[x][y] = "x"
-    
+
     return accessible_rolls
 
 def _count_adjacent_rolls(grid, x, y):
@@ -55,7 +54,13 @@ def _count_adjacent_rolls(grid, x, y):
     return number_of_adjacent_rolls
 
 def main():
-    print(solve_part2("input.txt"))
+    grid = get_input("input.txt")
+
+    result = solve_part1(grid)
+    print(f"Part 1 result: {result}")
+    result = solve_part2(grid)
+    print(f"part 2 result: {result}")
+
     return 0
 
 if __name__ == "__main__":
