@@ -43,8 +43,7 @@ def solve_part2(file):
                 if curr_char != " " and curr_char != "+" and curr_char != "*":
                     col_number += curr_char
             if col_number:
-                col_number = int(col_number)
-                col_numbers.append(col_number)
+                col_numbers.append(int(col_number))
             # if an operator is found, do the math and empty the collected numbers
             if curr_char == "+":
                 for num in col_numbers:
