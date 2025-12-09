@@ -8,13 +8,7 @@ def get_input(input_file):
 
 def solve_part1(grid):
     number_of_splits = 0
-    # Get the starting position (colum index)
-    start_position = 0
-    c = grid[0][start_position]
-    while c != "S":
-        start_position += 1
-        c = grid[0][start_position]
-
+    start_position = grid[0].find("S")
     current_row = 1
     tachyon_columns = []
     tachyon_columns.append(start_position)
